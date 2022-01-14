@@ -1,17 +1,17 @@
 <?php
 /**
-* @package wpxDevPlugin
+* @package syntaxified
 * @version 1.0.0
 */
 /*
 Plugin Name: Syntaxfied Testomonials
 Plugin URI: https://www.syntaxified.com/
-Description: This is a syntaxified wordpress plugin
+Description: WP Custom Plugins
 Author: Fritz Darry
 Author URI: https://www.syntaxified.com/
 Version: 1.0.0
 License: GPLv2 or later
-Text Domain: wpx-plugin
+Text Domain: wppx-extend
 */
 /*
 This program is free software; you can redistribute it and/or
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 defined('ABSPATH') or die('You are not in wordpress directory.');
 
-class wpxDevPlugin
+class wppx_extend
 {
 
      function __construct(){
@@ -62,22 +62,21 @@ class wpxDevPlugin
      }
 
      function enqueue(){
-         wp_enqueue_style('wpx-plugin-css', plugins_url('/assets/custom.css',__FILE__));
-         wp_enqueue_script('wpx-plugin-js', plugins_url('/assets/custom.js',__FILE__));
+         wp_enqueue_style('wpp-extend-css', plugins_url('/assets/custom.css',__FILE__));
+         wp_enqueue_script('wpp-extend-js', plugins_url('/assets/custom.js',__FILE__));
      }
 
 }
 
-if(class_exists('wpxDevPlugin')){
+if(class_exists('wppx_extend')){
 
-    $wpxDev = new wpxDevPlugin();
+    $wpxDev = new wppx_extend();
     $wpxDev->register();
 
+    //activate
+    register_activation_hook(__FILE__, array($wpxDev, 'activate'));
+    //dactivate
+    register_deactivation_hook(__FILE__, array($wpxDev, 'deactivate'));
+    //uninstall
+    //register_uninstall_hook(__FILE__, array($wpxDev, 'uninstall'));
 }
-
-//activate
-register_activation_hook(__FILE__, array($wpxDev, 'activate'));
-//dactivate
-register_deactivation_hook(__FILE__, array($wpxDev, 'deactivate'));
-//uninstall
-//register_uninstall_hook(__FILE__, array($wpxDev, 'uninstall'));
